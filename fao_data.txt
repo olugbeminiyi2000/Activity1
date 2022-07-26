@@ -1,0 +1,153 @@
+import numpy as np
+import pandas as pd
+
+FAO_DATA=pd.read_csv('FoodBalanceSheets_E_Africa_NOFLAG.csv',error_bad_lines=False)
+FAO_DATA.head()
+
+FAO_DATA['Item'].unique()
+
+FAO_DATA['Item'].value_counts().sort_index()#to help us look for animal fats
+# making a data frame boolean like this
+FAO_DATA[FAO_DATA['Item'] == 'Animal fats']
+FAO_DATA.groupby('Item').agg(np.sum)[['Y2014','Y2017']]
+#answer for number 11 is c
+
+FAO_DATA.info()
+#this gives me info about the dataframe which can help know about the dataframe #dtypes before
+#i can tackle question 12
+
+FAO_DATA['Y2015'].describe()
+#this can help us find the statistical properties of the year 2015 to be specific
+#and i can index through this result like this 
+#since mean and std are index 1 and 2
+# question 12 answer is d
+
+
+mean_2015=FAO_DATA['Y2015'].describe()[1]
+std_2015=FAO_DATA['Y2015'].describe()[2]
+print(mean_2015,std_2015)
+
+
+#we can also do this manually
+#by doing this below
+(np.mean(FAO_DATA['Y2015']),np.std(FAO_DATA['Y2015']))
+
+
+FAO_DATA.info()
+print('\n')
+print('this is the shape of the dtaataframe:',FAO_DATA.shape)
+
+
+FAO_DATA.isnull().sum()
+#description of nan values in each column or variable or features
+
+
+totalvalues2016=FAO_DATA['Y2016'].isnull().count()
+totalvalues2016
+#this gives us the total no of rows of nan and notnan value
+
+
+nullvalues2016=FAO_DATA['Y2016'].isnull().sum()
+nullvalues2016
+#this gives the value of only nan values
+
+FAO_DATA['Y2016'].count()
+#this gives us the total no of notnan values
+
+percentage=round((nullvalues2016/totalvalues2016) * 100,2)
+percentage
+
+
+#question 13 answer is 
+print((nullvalues2016,percentage))
+
+
+FAO_DATA.corr()
+#looking at the data the colum highly correlated with Element Code is Y2014
+#the answer is b i.e 2014
+
+
+
+FAO_DATA['Element'].unique()
+
+
+FAO_DATA['Element'].value_counts().sort_index()
+
+
+FAO_DATA.groupby('Element').agg(np.sum)[['Y2014','Y2015','Y2016','Y2017','Y2018']]
+#ANSWER FOR QUESTION 15 IS YEAR 2017
+#ANSWER FOR QUESTION 16 IS 1931287.75 I.E C
+
+FAO_DATA.groupby('Element').agg(np.sum)['Y2018']
+
+
+len(FAO_DATA.groupby('Element').agg(np.sum)['Y2018'])
+
+max(FAO_DATA.groupby('Element').agg(np.sum)['Y2018'])
+#answer is domestic supply quantity question 17
+#answer for question 18 is e protein suppply quantity
+
+FAO_DATA.groupby(['Area','Element']).agg(np.sum)['Y2018'].to_frame()[:17]
+# my wonderful piece of code all written by me 
+# due to large experience from multiple experiences
+# the answer for 
+
+FAO_DATA.groupby(['Area','Element']).agg(np.sum)['Y2018'].to_frame()[7:8]
+#this is the answer to questio 19
+
+
+print('Question 20 answer is:',len(FAO_DATA['Area'].unique()))
+print('\n')
+FAO_DATA['Area'].unique()
+
+
+# DEAR HAMOYE I THOUGHT I COULD SAVE MY PROGRESS ON  THE QUIZ THEN RETURN BACK TO #IT AND COMPLETE IT 
+# AFTER WORKING ON THE DATA BUT ALTHOUGH I PERSONALLY DIDNT KNOW THIS THAT I HAD #TO WORK ON THE DATA 
+# BEFORE ATTEMPTING THE QUIZ SORRY FOR THE QUIZ SCORE I COULD HAVE GOTTEN 90 OVER #100 OR ALL 
+# BUT I AM GLAD I WORKED ON THE QUIZ DATA MYSELF :)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
